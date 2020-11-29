@@ -1,20 +1,24 @@
-import React, { Component } from "react"
+import React from "react"
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom"
 import Submission from "./submission/submission"
 import NewsContent from "./newsContent/newsContent"
-export default class RouterComponent extends Component{
+export default function RouterComponent (){
 
     
-    render() {
+
       
   
         return (
   
           <Router>
+            <Route path='/newscontent/:transactionId' render={(props) => {
+                    return ( <NewsContent {...props } /> )
+                }} />
           <Route exact path="/submission" component={Submission} />
-          <Route exact path="/newscontent" component={NewsContent} />
+      
           </Router>
-        )}
+        )
+      
+      }
   
     
-}

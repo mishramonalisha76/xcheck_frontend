@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import {
     Grid,
     TextField,
@@ -43,7 +43,7 @@ const data = {
 
 }
 
-export default function NewsContent() {
+export default function NewsContent(props) {
     const classes = useStyles();
 
     let history = useHistory();
@@ -51,8 +51,22 @@ export default function NewsContent() {
     function handleClick() {
       history.push("/submission");
     }
+    
+    const [data,setData]=React.useState({});
 
+    useEffect( () => {
+        const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ transactionId: props.match.params.transactionId })
+    };
+    fetch(port + "/homepage/homepagefetch", requestOptions)
+      .then(res => res.json())
+      .then(
+        (result) => setData(result))
+      }, [])
 
+    
 
     return (
         // <Grid container justify="center">
