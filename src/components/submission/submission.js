@@ -43,14 +43,15 @@ export default function Submission() {
         //     <Grid item container xs={8}>
                 <Card raised={true} className={classes.cardStyle} >
                     <CardContent>
-                        <Grid  container className={classes.root} justify="center" >
-                            <Grid item xs={9} className={classes.gridItemStyle}>
-                                <AddressForm />
-                            </Grid>
-                            <Grid item xs={3} className={classes.gridItemStyle}>
+                        <Grid  container className={classes.root} justify="center"  direction="row-reverse">
+                        <Grid item xs={12} md={3} className={classes.gridItemStyle}>
                                 <Logo />
                             </Grid>
                         
+                            <Grid item xs={12} md={9} className={classes.gridItemStyle}>
+                                <AddressForm />
+                            </Grid>
+                            
                         </Grid>
 
                     </CardContent>
