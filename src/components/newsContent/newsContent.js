@@ -10,6 +10,7 @@ import Logo from "../submission/logo"
 import NewsTitle from "./newsTitle"
 import { useHistory } from "react-router-dom";
 import { port } from "../../config/config";
+import axios from 'axios';
 
 
 
@@ -58,15 +59,14 @@ export default function NewsContent(props) {
     useEffect( () => {
         console.log(props.match.params.transactionId)
         const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: (props.match.params.transactionId).toString() })
-    };
-    fetch(port + "/post/getpostbyid", requestOptions)
-      .then(res =>{console.log(res);res.json()})
-      .then(
-        (result) => setData(result))
-      }, [])
+   
+       id: props.match.params.transactionId
+    }
+    axios.post(`${port}/post/getpostbyid`, { requestOptions })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      }), []})
 
     
 
