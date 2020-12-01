@@ -9,6 +9,7 @@ import NewsDynamicContent from "./newsDynamicContent"
 import Logo from "../submission/logo"
 import NewsTitle from "./newsTitle"
 import { useHistory } from "react-router-dom";
+import { port } from "../../config/config";
 
 
 
@@ -55,13 +56,14 @@ export default function NewsContent(props) {
     const [data,setData]=React.useState({});
 
     useEffect( () => {
+        console.log(props.match.params.transactionId)
         const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ transactionId: props.match.params.transactionId })
+      body: JSON.stringify({ id: (props.match.params.transactionId).toString() })
     };
-    fetch(port + "/homepage/homepagefetch", requestOptions)
-      .then(res => res.json())
+    fetch(port + "/post/getpostbyid", requestOptions)
+      .then(res =>{console.log(res);res.json()})
       .then(
         (result) => setData(result))
       }, [])
