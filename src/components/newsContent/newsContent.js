@@ -51,24 +51,37 @@ export default function NewsContent(props) {
     let history = useHistory();
 
     function handleClick() {
-      history.push("/submission");
+        history.push("/submission");
     }
-    
-    const [data,setData]=React.useState({});
+
+    const [data, setData] = React.useState({});
 
     useEffect( () => {
         console.log(props.match.params.transactionId)
         const requestOptions = {
-   
-       id: props.match.params.transactionId
-    }
-    axios.post(`${port}/post/getpostbyid`, { requestOptions })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      }), []})
 
-    
+            id: props.match.params.transactionId
+        }
+        // axios.post(`${port}/post/getpostbyid`, { requestOptions })
+        //   .then(res => (console.log(res))
+
+
+
+         axios.post(`${port}/post/getpostbyid`, {
+            id: props.match.params.transactionId
+        })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        //   ),
+
+
+    }, []);
+
+
 
     return (
         // <Grid container justify="center">

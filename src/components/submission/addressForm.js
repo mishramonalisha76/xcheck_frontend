@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import Loader from "../loader/loader"
 import { useHistory } from "react-router-dom";
 import { port } from "../../config/config";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -73,7 +74,7 @@ export default function AddressForm() {
         //dynamic link next page
         const transactionId = "mona"
         const post = {
-            transactionID:transactionId,
+            transactionID: transactionId,
             author: author,
             newsLanguage: newsLanguage,
             newsType: newsType,
@@ -85,170 +86,180 @@ export default function AddressForm() {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ organisationName: author,post:post })
+            body: JSON.stringify({ organisationName: author, post: post })
         };
-        fetch(port + "/post/savepost", requestOptions)
-            .then(res => res.json())
-            .then(
-                (result) =>console.log("hi"))
-    
-  
-
-    
-
-
-    history.push(`/newscontent/${transactionId}`);
-
-
-
-};
+        // fetch(port + "/post/savepost", requestOptions)
+        //     .then(res => res.json())
+        //     .then(
+        //         (result) =>console.log("hi"))
 
 
 
 
-return (
-
-    <div >
-
-        <form className={classes.root} noValidate autoComplete="off">
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">Author</InputLabel>
-                <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={author}
-                    onChange={handleAuthorChange}
-                    label="Author"
-                >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"ten"}>Ten</MenuItem>
-                    <MenuItem value={"twenty"}>Twenty</MenuItem>
-                    <MenuItem value={"thirty"}>Thirty</MenuItem>
-                </Select>
-            </FormControl>
+        axios.post(`${port}/post/savepost`, {
+            organisationName: author, post: post
+        })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
 
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">News Language</InputLabel>
-                <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    label="News Language"
 
-                    value={newsLanguage}
-                    onChange={handleNewsLanguageChange}
-                >
-                    <MenuItem value={"English"}>English</MenuItem>
-                    <MenuItem value={"Hindi"}>Hindi</MenuItem>
-
-                </Select>
-            </FormControl>
-
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">News Type</InputLabel>
-                <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    label="News Type"
-                    value={newsType}
-                    onChange={handleNewsTypeChange}
-                >
-                    <MenuItem value={"News"}>News</MenuItem>
-                    <MenuItem value={"Satire"}>Satire</MenuItem>
-                    <MenuItem value={"Sponsored"}>Sponsored</MenuItem>
-                    <MenuItem value={"Press Release"}>Press Release</MenuItem>
-
-                </Select>
-            </FormControl>
-
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">News Category</InputLabel>
-                <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-
-                    label="News Category"
-                    value={newsCategory}
-                    onChange={handleNewsCategoryChange}
-                >
-                    <MenuItem value={"Politics"}>Politics</MenuItem>
-                    <MenuItem value={"National"}>National</MenuItem>
-                    <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                    <MenuItem value={"Chhattisgarh"}>Chhattisgarh</MenuItem>
-                    <MenuItem value={"Sports"}>Sports</MenuItem>
-                    <MenuItem value={"Economics"}>Economics</MenuItem>
-                </Select>
-            </FormControl>
-
-            <FormControl className={classes.formControl}>
-                <TextField
-                    label="News Headline"
-                    variant="outlined"
-                    value={newsHeadline}
-                    onChange={handleNewsHeadlineChange}
-                    type="text"
-                    type="text"
-                    multiline
-                    required
-                    rows={3}
-                    inputProps={{ maxLength: 200 }}
-
-                />
-            </FormControl>
-
-            <FormControl className={classes.formControl}>
-                <TextField
-                    label="News Content"
-                    variant="outlined"
-                    value={newsContent}
-                    onChange={handleNewsContentChange}
-                    type="text"
-                    multiline
-                    required
-                    rows={5}
-                    inputProps={{ maxLength: 500 }}
+        history.push(`/newscontent/${transactionId}`);
 
 
-                />
-            </FormControl>
 
-            <FormControl className={classes.formControl}>
-                <TextField
-                    label="News Description"
-                    variant="outlined"
-                    value={newsDescription}
-                    onChange={handleNewsDescriptionChange}
-                    type="text"
-                    multiline
-                    rows={2}
-                    inputProps={{ maxLength: 300 }}
-
-                />
-            </FormControl>
-
-            <FormControl className={classes.formControl}>
-
-                <TextField
-                    label="Keywords"
-                    variant="outlined"
-                    helperText="Comma separated keywords"
+    };
 
 
-                />
-            </FormControl>
-            <br />
-            <br />
-            <Button variant="contained" color="primary" component="span" onClick={handleSubmit}>
-                Submit News
+
+
+    return (
+
+        <div >
+
+            <form className={classes.root} noValidate autoComplete="off">
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-outlined-label">Author</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={author}
+                        onChange={handleAuthorChange}
+                        label="Author"
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={"ten"}>Ten</MenuItem>
+                        <MenuItem value={"twenty"}>Twenty</MenuItem>
+                        <MenuItem value={"thirty"}>Thirty</MenuItem>
+                    </Select>
+                </FormControl>
+
+
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-outlined-label">News Language</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        label="News Language"
+
+                        value={newsLanguage}
+                        onChange={handleNewsLanguageChange}
+                    >
+                        <MenuItem value={"English"}>English</MenuItem>
+                        <MenuItem value={"Hindi"}>Hindi</MenuItem>
+
+                    </Select>
+                </FormControl>
+
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-outlined-label">News Type</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        label="News Type"
+                        value={newsType}
+                        onChange={handleNewsTypeChange}
+                    >
+                        <MenuItem value={"News"}>News</MenuItem>
+                        <MenuItem value={"Satire"}>Satire</MenuItem>
+                        <MenuItem value={"Sponsored"}>Sponsored</MenuItem>
+                        <MenuItem value={"Press Release"}>Press Release</MenuItem>
+
+                    </Select>
+                </FormControl>
+
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-outlined-label">News Category</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+
+                        label="News Category"
+                        value={newsCategory}
+                        onChange={handleNewsCategoryChange}
+                    >
+                        <MenuItem value={"Politics"}>Politics</MenuItem>
+                        <MenuItem value={"National"}>National</MenuItem>
+                        <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+                        <MenuItem value={"Chhattisgarh"}>Chhattisgarh</MenuItem>
+                        <MenuItem value={"Sports"}>Sports</MenuItem>
+                        <MenuItem value={"Economics"}>Economics</MenuItem>
+                    </Select>
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+                    <TextField
+                        label="News Headline"
+                        variant="outlined"
+                        value={newsHeadline}
+                        onChange={handleNewsHeadlineChange}
+                        type="text"
+                        type="text"
+                        multiline
+                        required
+                        rows={3}
+                        inputProps={{ maxLength: 200 }}
+
+                    />
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+                    <TextField
+                        label="News Content"
+                        variant="outlined"
+                        value={newsContent}
+                        onChange={handleNewsContentChange}
+                        type="text"
+                        multiline
+                        required
+                        rows={5}
+                        inputProps={{ maxLength: 500 }}
+
+
+                    />
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+                    <TextField
+                        label="News Description"
+                        variant="outlined"
+                        value={newsDescription}
+                        onChange={handleNewsDescriptionChange}
+                        type="text"
+                        multiline
+                        rows={2}
+                        inputProps={{ maxLength: 300 }}
+
+                    />
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+
+                    <TextField
+                        label="Keywords"
+                        variant="outlined"
+                        helperText="Comma separated keywords"
+
+
+                    />
+                </FormControl>
+                <br />
+                <br />
+                <Button variant="contained" color="primary" component="span" onClick={handleSubmit}>
+                    Submit News
                     </Button>
-        </form>
-        {loader &&
-            <Loader
-            />}
-    </div>
-)
+            </form>
+            {loader &&
+                <Loader
+                />}
+        </div>
+    )
 
 
 }
