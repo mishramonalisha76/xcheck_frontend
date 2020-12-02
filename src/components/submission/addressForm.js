@@ -40,6 +40,7 @@ export default function AddressForm() {
     const [newsHeadline, setNewsHeadlineChange] = React.useState('');
     const [newsContent, setNewsContentChange] = React.useState('');
     const [newsDescription, setNewsDescriptionChange] = React.useState('');
+    const [newsKeywords, setNewsKeywordsChange] = React.useState('');
     const [loader, setLoader] = React.useState(false);
 
     const handleAuthorChange = (event) => {
@@ -64,6 +65,9 @@ export default function AddressForm() {
     const handleNewsDescriptionChange = (event) => {
         setNewsDescriptionChange(event.target.value);
     };
+    const handleNewsKeywordsChange = (event) => {
+        setNewsKeywordsChange(event.target.value);
+    };
     const handleSubmit = (event) => {
         setLoader(true);
         console.log("loader chnaged");
@@ -82,6 +86,7 @@ export default function AddressForm() {
             newsHeadline: newsHeadline,
             newsContent: newsContent,
             newsDescription: newsDescription,
+            newsKeywords: newsKeywords.split(',')
         }
         const requestOptions = {
             method: 'POST',
@@ -244,6 +249,8 @@ export default function AddressForm() {
                     <TextField
                         label="Keywords"
                         variant="outlined"
+                        value={newsKeywords}
+                        onChange={handleNewsKeywordsChange}
                         helperText="Comma separated keywords"
 
 

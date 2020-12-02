@@ -33,10 +33,10 @@ export default function NewsTitle(props) {
        News Fingerprint:
       </Typography>
       <Typography variant="h6" gutterBottom>
-       Network Ropsten:
+       {"Network Ropsten:"}
       </Typography>
       <Typography variant="h6" gutterBottom>
-       Transaction ID:
+      { "Transaction ID:"+ props.data.transactionID}
       </Typography>
       <Typography variant="h6" gutterBottom>
        Block Details:

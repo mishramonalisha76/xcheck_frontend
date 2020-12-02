@@ -71,7 +71,7 @@ export default function NewsContent(props) {
             id: props.match.params.transactionId
         })
             .then((response) => {
-                console.log(response.data)
+                setData(response.data)
             })
             .catch((error) => {
                 console.log(error);
