@@ -5,6 +5,7 @@ import {
     Button
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -76,9 +77,9 @@ export default function AddressForm() {
         //call to api
         //loader to false
         //dynamic link next page
-        const transactionId = "mona"
+       
         const post = {
-            transactionID: transactionId,
+         
             author: author,
             newsLanguage: newsLanguage,
             newsType: newsType,
@@ -106,6 +107,8 @@ export default function AddressForm() {
         })
             .then((response) => {
                 console.log(response.data)
+                setLoader(false);
+                history.push(`/newscontent/${response.data.transactionID}`);
             })
             .catch((error) => {
                 console.log(error);
@@ -113,7 +116,7 @@ export default function AddressForm() {
 
 
 
-        history.push(`/newscontent/${transactionId}`);
+     
 
 
 
