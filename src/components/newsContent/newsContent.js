@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
     Grid,
     TextField,
@@ -57,11 +57,11 @@ export default function NewsContent(props) {
     const [data, setData] = React.useState({});
 
     useEffect( () => {
-        console.log(props.match.params.transactionId)
-        const requestOptions = {
+        // console.log(props.match.params.transactionId)
+        // const requestOptions = {
 
-            id: props.match.params.transactionId
-        }
+        //     id: props.match.params.transactionId
+        // }
         // axios.post(`${port}/post/getpostbyid`, { requestOptions })
         //   .then(res => (console.log(res))
 

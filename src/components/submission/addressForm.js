@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Grid,
     TextField,
@@ -29,10 +29,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function AddressForm() {
+export default function AddressForm(props) {
 
     const classes = useStyles();
     let history = useHistory();
+
+    const [newsChannelData, setNewsChannelData] = useState({});
 
     const [author, setAuthorChange] = React.useState('');
     const [newsLanguage, setNewsLanguageChange] = React.useState('');
@@ -43,9 +45,28 @@ export default function AddressForm() {
     const [newsDescription, setNewsDescriptionChange] = React.useState('');
     const [newsKeywords, setNewsKeywordsChange] = React.useState('');
     const [loader, setLoader] = React.useState(false);
+    // console.log(props.newsChannelName)
 
-    const handleAuthorChange = (event) => {
-        setAuthorChange(event.target.value);
+    useEffect(() => {
+
+
+        axios.post(`${port}/organization/authors`, {
+            newsChannelName: props.newsChannelName
+        })
+            .then((response) => {
+                setNewsChannelData(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+
+
+    }, []);
+
+
+    const handleAuthorChange = (event) => {      
+        setAuthorChange(event.target.value);        
     };
     const handleNewsLanguageChange = (event) => {
         setNewsLanguageChange(event.target.value);
@@ -77,9 +98,9 @@ export default function AddressForm() {
         //call to api
         //loader to false
         //dynamic link next page
-       
+
         const post = {
-         
+
             author: author,
             newsLanguage: newsLanguage,
             newsType: newsType,
@@ -89,15 +110,7 @@ export default function AddressForm() {
             newsDescription: newsDescription,
             newsKeywords: newsKeywords.split(',')
         }
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ organisationName: author, post: post })
-        };
-        // fetch(port + "/post/savepost", requestOptions)
-        //     .then(res => res.json())
-        //     .then(
-        //         (result) =>console.log("hi"))
+        
 
 
 
@@ -116,15 +129,17 @@ export default function AddressForm() {
 
 
 
-     
+
 
 
 
     };
 
 
-
-
+    const NewsChannelData = {
+        authors: ["ajatak1", "ajtak2", "ajtak3"]
+    }
+    
     return (
 
         <div >
@@ -139,12 +154,20 @@ export default function AddressForm() {
                         onChange={handleAuthorChange}
                         label="Author"
                     >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={"ten"}>Ten</MenuItem>
-                        <MenuItem value={"twenty"}>Twenty</MenuItem>
-                        <MenuItem value={"thirty"}>Thirty</MenuItem>
+
+                        {NewsChannelData.authors.map(authors => {
+                            return (
+                            
+                                    <MenuItem  value={authors}>{authors}</MenuItem>
+                                
+                            )
+                        })}
+                       
+
+
+
+
+
                     </Select>
                 </FormControl>
 

@@ -14,7 +14,11 @@ export default function RouterComponent (){
             <Route path='/newscontent/:transactionId' render={(props) => {
                     return ( <NewsContent {...props } /> )
                 }} />
-          <Route exact path="/submission" component={Submission} />
+          {/* <Route exact path="/submission" component={Submission} /> */}
+          <Route path='/:newsChannelName' render={(props) => {
+                    return ( <Submission {...props } /> )
+                }} />
+          
       
           </Router>
         )
