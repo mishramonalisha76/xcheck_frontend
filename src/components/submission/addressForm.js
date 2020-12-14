@@ -50,7 +50,7 @@ export default function AddressForm(props) {
     useEffect(() => {
 
 
-        axios.post(`${port}/organization/authors`, {
+        axios.post(`${port}/org/authors`, {
             newsChannelName: props.newsChannelName
         })
             .then((response) => {
@@ -65,8 +65,8 @@ export default function AddressForm(props) {
     }, []);
 
 
-    const handleAuthorChange = (event) => {      
-        setAuthorChange(event.target.value);        
+    const handleAuthorChange = (event) => {
+        setAuthorChange(event.target.value);
     };
     const handleNewsLanguageChange = (event) => {
         setNewsLanguageChange(event.target.value);
@@ -110,7 +110,7 @@ export default function AddressForm(props) {
             newsDescription: newsDescription,
             newsKeywords: newsKeywords.split(',')
         }
-        
+
 
 
 
@@ -136,10 +136,8 @@ export default function AddressForm(props) {
     };
 
 
-    const NewsChannelData = {
-        authors: ["ajatak1", "ajtak2", "ajtak3"]
-    }
-    
+
+
     return (
 
         <div >
@@ -155,14 +153,14 @@ export default function AddressForm(props) {
                         label="Author"
                     >
 
-                        {NewsChannelData.authors.map(authors => {
+                        {newsChannelData.authors.map(authors => {
                             return (
-                            
-                                    <MenuItem  value={authors}>{authors}</MenuItem>
-                                
+
+                                <MenuItem value={authors}>{authors}</MenuItem>
+
                             )
                         })}
-                       
+
 
 
 
