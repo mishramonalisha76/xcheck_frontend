@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-    Grid,
+
     TextField,
     Button
 } from "@material-ui/core";
@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Loader from "../loader/loader"
@@ -33,8 +32,9 @@ export default function AddressForm(props) {
 
     const classes = useStyles();
     let history = useHistory();
+    // const { newsChannelName } = props;
 
-    const [newsChannelData, setNewsChannelData] = useState({});
+    const [newsChannelData, setNewsChannelData] = useState(props);
 
     const [author, setAuthorChange] = React.useState('');
     const [newsLanguage, setNewsLanguageChange] = React.useState('');
@@ -45,25 +45,25 @@ export default function AddressForm(props) {
     const [newsDescription, setNewsDescriptionChange] = React.useState('');
     const [newsKeywords, setNewsKeywordsChange] = React.useState('');
     const [loader, setLoader] = React.useState(false);
-    // console.log(props.newsChannelName)
-
-    useEffect(() => {
 
 
-        axios.post(`${port}/org/authors`, {
-            newsChannelName: props.newsChannelName
-        })
-            .then((response) => {
-                setNewsChannelData(response.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    //     useEffect(() => {
+
+    //             console.log("hey")
+    //             axios.post(`${port}/org/authors`, {
+    //                 newsChannelName: newsChannelName
+    //             })
+    //                 .then((response) => {
+    //                     setNewsChannelData(response.data)
+    //                 })
+    //                 .catch((error) => {
+    //                     console.log(error);
+    //                 });
 
 
 
-    }, []);
-
+    //     }, []);
+    // console.log(newsChannelData)
 
     const handleAuthorChange = (event) => {
         setAuthorChange(event.target.value);
@@ -153,10 +153,10 @@ export default function AddressForm(props) {
                         label="Author"
                     >
 
-                        {newsChannelData.authors.map(authors => {
+                        {(props.newsChannelData && props.newsChannelData.authors && props.newsChannelData.authors.length > 0) && props.newsChannelData.authors.map((res, index) => {
                             return (
 
-                                <MenuItem value={authors}>{authors}</MenuItem>
+                                <MenuItem key={index} value={res}>{res}</MenuItem>
 
                             )
                         })}
