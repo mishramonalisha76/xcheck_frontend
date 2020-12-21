@@ -121,7 +121,11 @@ export default function AddressForm(props) {
             .then((response) => {
                 console.log(response.data)
                 setLoader(false);
-                history.push(`/newscontent/${response.data.transactionID}`);
+                history.push({
+                    pathname: '/news/transaction',
+                  
+                    state: { transactionID: response.data }
+                  })
             })
             .catch((error) => {
                 console.log(error);
